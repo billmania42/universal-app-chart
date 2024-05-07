@@ -1,0 +1,44 @@
+istio:
+  cpu:
+  cpuLimit:
+  memory:
+  memoryLimit:
+  routing:
+    ingress:
+      name:
+      type:
+      portNumber:
+      protocol:
+      portName: "{{ .Values.service.name }}"
+      certSecret: true
+      secretName:
+      tlsMode: MUTUAL
+      routeHostNames:
+      - app.foo.bar.com
+      retryEnabled: true
+      retryAttempts: 3
+      retryTimeout: 2s
+      corsEnabled: true
+    egress:
+      portNumber: 443
+      protocol: TCP
+      certSecret: true
+      secretName: egress-secret
+      tlsMode: SIMPLE
+      routeHostNames:
+      - external.app.com
+
+  security:
+    authotirzationPolicy:
+      enabled: true
+      serviceNamespaces:
+        - default
+      servicePrincipals:
+        - "cluster.local/ns/default/sa/foo"
+    requestAuthentication:
+      jwtRules:
+        - issuer:
+          jwksUri:
+          audiences:
+            - xxxxxx
+            - xxxxxx 

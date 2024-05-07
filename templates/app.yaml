@@ -1,0 +1,47 @@
+{{-if .Values.configs }}
+---
+{{- include "common-chart.configmap" . }}
+{{- end }}
+---
+{{-if .Values.secrets }}
+---
+{{- include "common-chart.secrets" . }}
+{{- end }}
+---
+{{- include "common-chart.deployment" . }}
+---
+{{- include "common-chart.service" . }}
+---
+{{-if .Values.serviceAccount }}
+---
+{{- include "common-chart.service-account" . }}
+{{- end }}
+---
+{{-if .Values.staticSecrets }}
+---
+{{- include "common-chart.vault-static-secret" . }}
+{{- end }}
+---
+{{-if .Values.persistentStorage }}
+---
+{{- include "common-chart.pvc" . }}
+{{- end }}
+---
+{{- include "istio-authorization-policy" . }}
+
+{{- if .Values.istio.routing.ingress . }}
+---
+{{- include  "istio.secure-ingress" . }}
+{{- else }}
+{{ include "istio.default-routing" . }}
+{{- end }}
+---
+{{- if .Values.istio.routing.egress . }}
+---
+{{- include  "istio.secure-egress" . }}
+{{- end }}
+---
+{{- if .Values.istio.requestAuthentication . }}
+---
+{{- include  "istio.request-authentication" . }}
+{{- end }}

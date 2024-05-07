@@ -1,0 +1,11 @@
+apiVersion: v2
+name: universal-app
+description: Universal application chart.  This chart leverages library charts, and includes components based on values file.
+version: 0.1.0
+maintainers:
+  - name: William_Maniates
+    email: foo@bar.com
+dependencies:
+  - name: common-chart
+    repository: https://github.com/billmania42/common-library-chart.git
+    version: 0.1.0
